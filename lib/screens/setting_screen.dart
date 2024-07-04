@@ -1,6 +1,7 @@
 import 'package:earthquakes/providers/app_data_provider.dart';
 import 'package:earthquakes/utils/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -62,6 +63,26 @@ class _SettingScreenState extends State<SettingScreen> {
                           child: const Text('Update Time Changes.'),
                         )
                       ],
+                    ),
+                  ),
+                  Text(
+                    'Location Settings',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  Card(
+                    child: SwitchListTile(
+                      title:
+                          Text(provider.currentCity ?? 'Your city is unknown.'),
+                      subtitle: provider.currentCity == null
+                          ? null
+                          : Text(
+                              'Earthquake data will be shown within ${provider.maxRadiusInKm} km radius from ${provider.currentCity}.'),
+                      value: provider.shouldUseLocation,
+                      onChanged: (value) async {
+                        EasyLoading.show(status: 'Getting location...');
+                        await provider.setLocation(value);
+                        EasyLoading.dismiss();
+                      },
                     ),
                   )
                 ],
