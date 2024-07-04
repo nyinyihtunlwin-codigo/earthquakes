@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:earthquakes/models/earthquake_model.dart';
 import 'package:earthquakes/utils/helper_functions.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -37,6 +36,13 @@ class AppDataProvider with ChangeNotifier {
   bool get shouldUseLocation => _shouldUseLocation;
 
   bool get hasDataLoaded => earthquakeModel != null;
+
+  void setOrder(String value){
+    _orderBy = value;
+    notifyListeners();
+    _setQueryParams();
+    getEarthquakeData();
+  }
 
   _setQueryParams() {
     queryParams['format'] = 'geojson';
