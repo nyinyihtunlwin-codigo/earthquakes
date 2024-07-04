@@ -37,11 +37,21 @@ class AppDataProvider with ChangeNotifier {
 
   bool get hasDataLoaded => earthquakeModel != null;
 
-  void setOrder(String value){
+  void setOrder(String value) {
     _orderBy = value;
     notifyListeners();
     _setQueryParams();
     getEarthquakeData();
+  }
+
+  void setStartTime(String value) {
+    _startTime = value;
+    notifyListeners();
+  }
+
+  void setEndTime(String value) {
+    _endTime = value;
+    notifyListeners();
   }
 
   _setQueryParams() {

@@ -1,4 +1,5 @@
 import 'package:earthquakes/providers/app_data_provider.dart';
+import 'package:earthquakes/screens/setting_screen.dart';
 import 'package:earthquakes/utils/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Earthquakes'),
         actions: [
           IconButton(
-              onPressed: _showSortingDialog, icon: const Icon(Icons.sort))
+              onPressed: _showSortingDialog, icon: const Icon(Icons.sort)),
+          IconButton(
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SettingScreen())),
+              icon: const Icon(Icons.settings))
         ],
       ),
       body: Consumer<AppDataProvider>(
